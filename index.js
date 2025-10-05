@@ -13,7 +13,14 @@ app.use((req, res, next) => {
 })
 
 // mongoose.connect('mongodb+srv://webdev_user:7qIViCrYDX9Jpqty@cluster0.7dodtzu.mongodb.net/myfirstdatabase/?retryWrites=true&w=majority&appName=Cluster0');
-mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ MongoDB connected successfully'))
+  .catch(err => {
+    console.log('❌ MongoDB connection failed:');
+    console.log('Error:', err.message);
+    console.log('MONGODB_URI exists?', !!process.env.MONGODB_URI);
+  });
 
 // Creating a User Model
 const UserSchema = new mongoose.Schema({
